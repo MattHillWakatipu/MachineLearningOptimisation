@@ -46,7 +46,7 @@ def data_preprocess(data):
              test_data        test data contains only inputs
              test_labels      test data contains only labels
              train_data_full       train data (full) contains both inputs and labels
-             test_data_full       test data (full) contains both inputs and labels
+             test_data_full        test data (full) contains both inputs and labels
     """
     # Categorical conversion
     lb_make = LabelEncoder()
