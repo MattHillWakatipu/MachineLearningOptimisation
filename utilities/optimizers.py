@@ -58,6 +58,20 @@ def mini_batch_gradient_descent(y, x, theta, max_iters, alpha, metric_type, mini
     losses = []
     thetas = []
     # Please refer to the function "gradient_descent" to implement the mini-batch gradient descent here
+    # TODO make this use batches somehow?
+    num_of_samples = len(x)
+    for i in range(max_iters):
+        # This is for MSE loss only
+        gradient = -2 * x.T.dot(y - x.dot(theta)) / num_of_samples
+        theta = theta - alpha * gradient
+        loss = compute_loss(y, x, theta, metric_type)
+
+        # Track losses and thetas
+        thetas.append(theta)
+        losses.append(loss)
+
+        print("BGD({bi}/{ti}): loss={l}, w={w}, b={b}".format(
+            bi = i, ti = max_iters - 1, l = loss, w = theta[0], b = theta[1]))
     return thetas, losses
 
 

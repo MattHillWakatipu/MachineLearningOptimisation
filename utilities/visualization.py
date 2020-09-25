@@ -83,6 +83,7 @@ def visualize_train(train_data_full, train_labels, train_data, thetas, losses, n
     ax3.plot(thetas_to_plot[:, 0], thetas_to_plot[:, 1], marker = 'o', color = 'w', markersize = 10)
     ax3.set_xlabel(r'$w$')
     ax3.set_ylabel(r'$b$')
+    plt.show()
     return fig1, fig2, fig3
 
 
@@ -96,4 +97,5 @@ def visualize_test(test_data_full, test_data, thetas):
     fig, ax = plt.subplots()
     ax.scatter(test_data_full["Weight"], test_data_full["Height"], color='blue')
     ax.plot(test_data_full["Weight"], predict(test_data, thetas[-1]), color='red', linewidth=2)
+    plt.show()
     return fig

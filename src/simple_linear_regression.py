@@ -14,15 +14,16 @@ from sklearn.linear_model import LinearRegression
 from utilities.losses import compute_loss
 from utilities.optimizers import gradient_descent, pso, mini_batch_gradient_descent
 from sklearn.model_selection import train_test_split
+import matplotlib as plt
 
 # General settings
 from utilities.visualization import visualize_train, visualize_test
 
-seed = 0
+seed = 309
 # Freeze the random seed
 random.seed(seed)
 np.random.seed(seed)
-train_test_split_test_size = 0.1
+train_test_split_test_size = 0.3
 
 # Training settings
 alpha = 0.1  # step size
@@ -105,32 +106,110 @@ def learn(y, x, theta, max_iters, alpha, optimizer_type = "BGD", metric_type = "
     return thetas, losses
 
 
-if __name__ == '__main__':
+def bgd_plus_mse():
     # Settings
     metric_type = "MSE"  # MSE, RMSE, MAE, R2
     optimizer_type = "BGD"  # PSO, BGD
-
     # Step 1: Load Data
     data = load_data()
-
     # Step 2: Preprocess the data
     train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
-
     # Step 3: Learning Start
     theta = np.array([0.0, 0.0])  # Initialize model parameter
-
     start_time = datetime.datetime.now()  # Track learning starting time
     thetas, losses = learn(train_labels.values, train_data.values, theta, max_iters, alpha, optimizer_type, metric_type)
-
     end_time = datetime.datetime.now()  # Track learning ending time
     exection_time = (end_time - start_time).total_seconds()  # Track execution time
-
     # Step 4: Results presentation
-    print("Learn: execution time={t:.3f} seconds".format(t = exection_time))
-
+    print("Learn: execution time={t:.3f} seconds".format(t=exection_time))
     # Build baseline model
     print("R2:", -compute_loss(test_labels.values, test_data.values, thetas[-1], "R2"))  # R2 should be maximize
     print("MSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MSE"))
     print("RMSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "RMSE"))
     print("MAE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MAE"))
+
+
+
+def mini_batch_bgd_plus_mse():
+    # Settings
+    metric_type = "MSE"  # MSE, RMSE, MAE, R2
+    optimizer_type = "MiniBGD"  # PSO, BGD
+    # Step 1: Load Data
+    data = load_data()
+    # Step 2: Preprocess the data
+    train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
+    # Step 3: Learning Start
+    theta = np.array([0.0, 0.0])  # Initialize model parameter
+    start_time = datetime.datetime.now()  # Track learning starting time
+    thetas, losses = learn(train_labels.values, train_data.values, theta, max_iters, alpha, optimizer_type, metric_type)
+    end_time = datetime.datetime.now()  # Track learning ending time
+    exection_time = (end_time - start_time).total_seconds()  # Track execution time
+    # Step 4: Results presentation
+    print("Learn: execution time={t:.3f} seconds".format(t=exection_time))
+    # Build baseline model
+    print("R2:", -compute_loss(test_labels.values, test_data.values, thetas[-1], "R2"))  # R2 should be maximize
+    print("MSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MSE"))
+    print("RMSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "RMSE"))
+    print("MAE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MAE"))
+
+    # visualize_train(train_data_full, train_labels, train_data, thetas, losses, 49)
+    # visualize_test(test_data_full, test_data, thetas)
+
+def pso_plus_mse():
+    # Settings
+    metric_type = "MSE"  # MSE, RMSE, MAE, R2
+    optimizer_type = "PSO"  # PSO, BGD
+    # Step 1: Load Data
+    data = load_data()
+    # Step 2: Preprocess the data
+    train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
+    # Step 3: Learning Start
+    theta = np.array([0.0, 0.0])  # Initialize model parameter
+    start_time = datetime.datetime.now()  # Track learning starting time
+    thetas, losses = learn(train_labels.values, train_data.values, theta, max_iters, alpha, optimizer_type, metric_type)
+    end_time = datetime.datetime.now()  # Track learning ending time
+    exection_time = (end_time - start_time).total_seconds()  # Track execution time
+    # Step 4: Results presentation
+    print("Learn: execution time={t:.3f} seconds".format(t=exection_time))
+    # Build baseline model
+    print("R2:", -compute_loss(test_labels.values, test_data.values, thetas[-1], "R2"))  # R2 should be maximize
+    print("MSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MSE"))
+    print("RMSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "RMSE"))
+    print("MAE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MAE"))
+
+
+
+def pso_plus_mae():
+    # Settings
+    metric_type = "MAE"  # MSE, RMSE, MAE, R2
+    optimizer_type = "PSO"  # PSO, BGD
+    # Step 1: Load Data
+    data = load_data()
+    # Step 2: Preprocess the data
+    train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
+    # Step 3: Learning Start
+    theta = np.array([0.0, 0.0])  # Initialize model parameter
+    start_time = datetime.datetime.now()  # Track learning starting time
+    thetas, losses = learn(train_labels.values, train_data.values, theta, max_iters, alpha, optimizer_type, metric_type)
+    end_time = datetime.datetime.now()  # Track learning ending time
+    exection_time = (end_time - start_time).total_seconds()  # Track execution time
+    # Step 4: Results presentation
+    print("Learn: execution time={t:.3f} seconds".format(t=exection_time))
+    # Build baseline model
+    print("R2:", -compute_loss(test_labels.values, test_data.values, thetas[-1], "R2"))  # R2 should be maximize
+    print("MSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MSE"))
+    print("RMSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "RMSE"))
+    print("MAE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MAE"))
+
+
+
+if __name__ == '__main__':
+    print("\nBGD+MSE:")
+    bgd_plus_mse()
+    print("\nMiniBGD+MSE:")
+    mini_batch_bgd_plus_mse()
+    print("\nPSO+MSE:")
+    pso_plus_mse()
+    print("\nPSO+MAE:")
+    pso_plus_mae()
 
