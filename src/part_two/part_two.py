@@ -79,6 +79,8 @@ def data_preprocess(data, test):
     train_data = data
     test_data = test
 
+    print(train_data.corr())
+
     # Pre-process data (both train and test)
     train_data_full = train_data.copy()
     train_data = train_data.drop(["class"], axis=1)
@@ -87,6 +89,19 @@ def data_preprocess(data, test):
     test_data_full = test_data.copy()
     test_data = test_data.drop(["class"], axis=1)
     test_labels = test_data_full["class"]
+
+    train_data = train_data.drop(["workclass"], axis=1)
+    test_data = test_data.drop(["workclass"], axis=1)
+    train_data = train_data.drop(["fnlwgt"], axis=1)
+    test_data = test_data.drop(["fnlwgt"], axis=1)
+    train_data = train_data.drop(["education"], axis=1)
+    test_data = test_data.drop(["education"], axis=1)
+    train_data = train_data.drop(["occupation"], axis=1)
+    test_data = test_data.drop(["occupation"], axis=1)
+    train_data = train_data.drop(["race"], axis=1)
+    test_data = test_data.drop(["race"], axis=1)
+    train_data = train_data.drop(["native-country"], axis=1)
+    test_data = test_data.drop(["native-country"], axis=1)
 
     # Standardize the inputs
     train_mean = train_data.mean()
@@ -142,6 +157,9 @@ if __name__ == '__main__':
         print("\nShape:", df_data.shape)
         print("\nMissing data?:", df_data.isnull().values.any())
         print("\nData Types: ", df_data.info())
+        print("\nDescribe:")
+        print(df_data.describe(include='all'))
+        print(df_data.corr())
 
     # Step 3: Preprocess the data
     train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data, test)

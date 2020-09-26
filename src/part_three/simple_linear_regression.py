@@ -35,7 +35,7 @@ def load_data():
     Load Data from CSV
     :return: df    a panda data frame
     """
-    df = pd.read_csv("../data/Part 3 - optimisation/Part2.csv")
+    df = pd.read_csv("../../data/Part 3 - optimisation/Part2.csv")
     return df
 
 
