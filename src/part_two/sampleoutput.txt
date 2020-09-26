@@ -1,0 +1,210 @@
+PyDev console: starting.
+Python 3.8.6 (tags/v3.8.6:db45529, Sep 23 2020, 15:52:53) [MSC v.1927 64 bit (AMD64)] on win32
+>>> runfile('C:/Users/Matt/PycharmProjects/LinearRegression/src/part_two/part_two.py', wdir='C:/Users/Matt/PycharmProjects/LinearRegression/src/part_two')
+   age          workclass  fnlwgt   education  education-num  \
+0   39          State-gov   77516   Bachelors             13
+1   50   Self-emp-not-inc   83311   Bachelors             13
+2   38            Private  215646     HS-grad              9
+3   53            Private  234721        11th              7
+4   28            Private  338409   Bachelors             13
+        marital-status          occupation    relationship    race      sex  \
+0        Never-married        Adm-clerical   Not-in-family   White     Male
+1   Married-civ-spouse     Exec-managerial         Husband   White     Male
+2             Divorced   Handlers-cleaners   Not-in-family   White     Male
+3   Married-civ-spouse   Handlers-cleaners         Husband   Black     Male
+4   Married-civ-spouse      Prof-specialty            Wife   Black   Female
+   capital-gain  capital-loss  hours-per-week  native-country   class
+0          2174             0              40   United-States   <=50K
+1             0             0              13   United-States   <=50K
+2             0             0              40   United-States   <=50K
+3             0             0              40   United-States   <=50K
+4             0             0              40            Cuba   <=50K
+Shape: (32561, 15)
+Missing data?: False
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 32561 entries, 0 to 32560
+Data columns (total 15 columns):
+ #   Column          Non-Null Count  Dtype
+---  ------          --------------  -----
+ 0   age             32561 non-null  int64
+ 1   workclass       32561 non-null  object
+ 2   fnlwgt          32561 non-null  int64
+ 3   education       32561 non-null  object
+ 4   education-num   32561 non-null  int64
+ 5   marital-status  32561 non-null  object
+ 6   occupation      32561 non-null  object
+ 7   relationship    32561 non-null  object
+ 8   race            32561 non-null  object
+ 9   sex             32561 non-null  object
+ 10  capital-gain    32561 non-null  int64
+ 11  capital-loss    32561 non-null  int64
+ 12  hours-per-week  32561 non-null  int64
+ 13  native-country  32561 non-null  object
+ 14  class           32561 non-null  object
+dtypes: int64(6), object(9)
+memory usage: 3.7+ MB
+Data Types:  None
+Describe:
+                 age workclass        fnlwgt education  education-num  \
+count   32561.000000     32561  3.256100e+04     32561   32561.000000
+unique           NaN         9           NaN        16            NaN
+top              NaN   Private           NaN   HS-grad            NaN
+freq             NaN     22696           NaN     10501            NaN
+mean       38.581647       NaN  1.897784e+05       NaN      10.080679
+std        13.640433       NaN  1.055500e+05       NaN       2.572720
+min        17.000000       NaN  1.228500e+04       NaN       1.000000
+25%        28.000000       NaN  1.178270e+05       NaN       9.000000
+50%        37.000000       NaN  1.783560e+05       NaN      10.000000
+75%        48.000000       NaN  2.370510e+05       NaN      12.000000
+max        90.000000       NaN  1.484705e+06       NaN      16.000000
+             marital-status       occupation relationship    race    sex  \
+count                 32561            32561        32561   32561  32561
+unique                    7               15            6       5      2
+top      Married-civ-spouse   Prof-specialty      Husband   White   Male
+freq                  14976             4140        13193   27816  21790
+mean                    NaN              NaN          NaN     NaN    NaN
+std                     NaN              NaN          NaN     NaN    NaN
+min                     NaN              NaN          NaN     NaN    NaN
+25%                     NaN              NaN          NaN     NaN    NaN
+50%                     NaN              NaN          NaN     NaN    NaN
+75%                     NaN              NaN          NaN     NaN    NaN
+max                     NaN              NaN          NaN     NaN    NaN
+        capital-gain  capital-loss  hours-per-week  native-country   class
+count   32561.000000  32561.000000    32561.000000           32561   32561
+unique           NaN           NaN             NaN              42       2
+top              NaN           NaN             NaN   United-States   <=50K
+freq             NaN           NaN             NaN           29170   24720
+mean     1077.648844     87.303830       40.437456             NaN     NaN
+std      7385.292085    402.960219       12.347429             NaN     NaN
+min         0.000000      0.000000        1.000000             NaN     NaN
+25%         0.000000      0.000000       40.000000             NaN     NaN
+50%         0.000000      0.000000       40.000000             NaN     NaN
+75%         0.000000      0.000000       45.000000             NaN     NaN
+max     99999.000000   4356.000000       99.000000             NaN     NaN
+                     age    fnlwgt  education-num  capital-gain  capital-loss  \
+age             1.000000 -0.076646       0.036527      0.077674      0.057775
+fnlwgt         -0.076646  1.000000      -0.043195      0.000432     -0.010252
+education-num   0.036527 -0.043195       1.000000      0.122630      0.079923
+capital-gain    0.077674  0.000432       0.122630      1.000000     -0.031615
+capital-loss    0.057775 -0.010252       0.079923     -0.031615      1.000000
+hours-per-week  0.068756 -0.018768       0.148123      0.078409      0.054256
+                hours-per-week
+age                   0.068756
+fnlwgt               -0.018768
+education-num         0.148123
+capital-gain          0.078409
+capital-loss          0.054256
+hours-per-week        1.000000
+                     age  workclass  ...  native-country     class
+age             1.000000   0.003787  ...       -0.001151  0.234037
+workclass       0.003787   1.000000  ...       -0.007690  0.051604
+fnlwgt         -0.076646  -0.016656  ...       -0.051966 -0.009463
+education      -0.010508   0.023513  ...        0.064288  0.079317
+education-num   0.036527   0.052085  ...        0.050840  0.335154
+marital-status -0.266288  -0.064731  ...       -0.023819 -0.199307
+occupation     -0.020947   0.254892  ...       -0.012543  0.075468
+relationship   -0.263698  -0.090461  ...       -0.005507 -0.250918
+race            0.028718   0.049742  ...        0.137852  0.071846
+sex             0.088832   0.095981  ...       -0.008119  0.215980
+capital-gain    0.077674   0.033835  ...       -0.001982  0.223329
+capital-loss    0.057775   0.012216  ...        0.000419  0.150526
+hours-per-week  0.069068   0.139541  ...       -0.002761  0.232393
+native-country -0.001151  -0.007690  ...        1.000000  0.015840
+class           0.234037   0.051604  ...        0.015840  1.000000
+[15 rows x 15 columns]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 32561 entries, 0 to 32560
+Data columns (total 15 columns):
+ #   Column          Non-Null Count  Dtype
+---  ------          --------------  -----
+ 0   age             32561 non-null  int64
+ 1   workclass       32561 non-null  int32
+ 2   fnlwgt          32561 non-null  int64
+ 3   education       32561 non-null  int32
+ 4   education-num   32561 non-null  int64
+ 5   marital-status  32561 non-null  int32
+ 6   occupation      32561 non-null  int32
+ 7   relationship    32561 non-null  int32
+ 8   race            32561 non-null  int32
+ 9   sex             32561 non-null  int32
+ 10  capital-gain    32561 non-null  int64
+ 11  capital-loss    32561 non-null  int64
+ 12  hours-per-week  32561 non-null  int64
+ 13  native-country  32561 non-null  int32
+ 14  class           32561 non-null  int32
+dtypes: int32(9), int64(6)
+memory usage: 2.6 MB
+Data Types:  None
+Test Data Head:
+         age  education-num  marital-status  relationship       sex  \
+0 -0.995690      -1.197440        0.921620      0.966932  0.703061
+1 -0.042641      -0.420053       -0.406206     -0.900167  0.703061
+2 -0.775756       0.746028       -0.406206     -0.900167  0.703061
+3  0.397227      -0.031360       -0.406206     -0.900167  0.703061
+4 -1.508871      -0.031360        0.921620      0.966932 -1.422309
+   capital-gain  capital-loss  hours-per-week  intercept_dummy
+0     -0.145918     -0.216656       -0.031121              1.0
+1     -0.145918     -0.216656        0.792330              1.0
+2     -0.145918     -0.216656       -0.031121              1.0
+3      0.895070     -0.216656       -0.031121              1.0
+4     -0.145918     -0.216656       -0.854573              1.0
+K-Neighbours
+Accuracy:  0.8310300350101345
+Precision:  0.6590182979959338
+Recall:  0.5899635985439418
+F1-Score:  0.6225819728357799
+AUC:  0.7477763308361044
+Naive Bayes
+Accuracy:  0.8065843621399177
+Precision:  0.5895196506550219
+Recall:  0.5967238689547582
+F1-Score:  0.5930998837059052
+AUC:  0.7341078130459356
+SVM
+Accuracy:  0.8222467907376697
+Precision:  0.7201665124884367
+Recall:  0.4048361934477379
+F1-Score:  0.5183089214380825
+AUC:  0.6780915989353687
+Decision Tree
+Accuracy:  0.8302315582580923
+Precision:  0.6606294536817102
+Recall:  0.5785231409256371
+F1-Score:  0.6168561131133907
+AUC:  0.7433025837318173
+Random Forest
+Accuracy:  0.8434371353110989
+Precision:  0.6929485272240404
+Recall:  0.6055642225689027
+F1-Score:  0.6463160815873455
+AUC:  0.7612863332386129
+AdaBoost
+Accuracy:  0.85553712916897
+Precision:  0.7496657754010695
+Recall:  0.5832033281331254
+F1-Score:  0.6560397777127815
+AUC:  0.7614850577135268
+Gradient Boosting
+Accuracy:  0.8640132669983416
+Precision:  0.7853146853146853
+Recall:  0.5839833593343734
+F1-Score:  0.6698478974053086
+AUC:  0.767303300093403
+Linear Discriminant Analysis
+Accuracy:  0.814262023217247
+Precision:  0.6885321100917431
+Recall:  0.39027561102444097
+F1-Score:  0.4981745768337206
+AUC:  0.667835835266945
+Multi-Layer Perceptron Regression
+Accuracy:  0.8513604815429028
+Precision:  0.7297036082474226
+Recall:  0.5889235569422777
+F1-Score:  0.6517985611510791
+AUC:  0.7607263542652684
+Logistic Regression
+Accuracy:  0.8240280081076101
+Precision:  0.7001223990208079
+Recall:  0.44617784711388453
+F1-Score:  0.5450214387803717
+AUC:  0.6935352444254586

@@ -52,16 +52,16 @@ def visualize_train(train_data_full, train_labels, train_data, thetas, losses, n
              fig3              gradient variation visualization
     """
     fig1, ax1 = plt.subplots()
-    ax1.scatter(train_data_full["Weight"], train_data_full["Height"], color = 'blue')
+    ax1.scatter(train_data_full["Height"], train_data_full["Weight"], color = 'blue')
 
     # De-standarize
-    train_mean = train_data_full["Weight"].mean()
-    train_std = train_data_full["Weight"].std()
-    train_data_for_plot = train_mean + train_data["Weight"] * train_std
+    train_mean = train_data_full["Height"].mean()
+    train_std = train_data_full["Height"].std()
+    train_data_for_plot = train_mean + train_data["Height"] * train_std
 
     ax1.plot(train_data_for_plot, predict(train_data, thetas[niter - 1]), color = 'red', linewidth = 2)
-    ax1.set_xlabel("Height")
-    ax1.set_ylabel("Weight")
+    ax1.set_xlabel("Weight")
+    ax1.set_ylabel("Height")
 
     fig2, ax2 = plt.subplots()
     ax2.plot(range(len(losses)), losses, color = 'blue', linewidth = 2)
@@ -95,7 +95,7 @@ def visualize_test(test_data_full, test_data, thetas):
     :return: fig
     """
     fig, ax = plt.subplots()
-    ax.scatter(test_data_full["Weight"], test_data_full["Height"], color='blue')
-    ax.plot(test_data_full["Weight"], predict(test_data, thetas[-1]), color='red', linewidth=2)
+    ax.scatter(test_data_full["Height"], test_data_full["Weight"], color='blue')
+    ax.plot(test_data_full["Height"], predict(test_data, thetas[-1]), color='red', linewidth=2)
     plt.show()
     return fig

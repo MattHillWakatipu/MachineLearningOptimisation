@@ -35,7 +35,7 @@ def load_data():
     Load Data from CSV
     :return: df    a panda data frame
     """
-    df = pd.read_csv("../../data/Part 3 - optimisation/Part2.csv")
+    df = pd.read_csv("../../data/Part 3 - optimisation/Part2Outliers.csv")
     return df
 
 
@@ -59,12 +59,12 @@ def data_preprocess(data):
 
     # Pre-process data (both train and test)
     train_data_full = train_data.copy()
-    train_data = train_data.drop(["Weight"], axis = 1)
-    train_labels = train_data_full["Weight"]
+    train_data = train_data.drop(["Height"], axis = 1)
+    train_labels = train_data_full["Height"]
 
     test_data_full = test_data.copy()
-    test_data = test_data.drop(["Weight"], axis = 1)
-    test_labels = test_data_full["Weight"]
+    test_data = test_data.drop(["Height"], axis = 1)
+    test_labels = test_data_full["Height"]
 
     # Standardize the inputs
     train_mean = train_data.mean()
@@ -104,56 +104,6 @@ def learn(y, x, theta, max_iters, alpha, optimizer_type = "BGD", metric_type = "
             "[ERROR] The optimizer '{ot}' is not defined, please double check and re-run your program.".format(
                 ot = optimizer_type))
     return thetas, losses
-
-
-def bgd_plus_mse():
-    # Settings
-    metric_type = "MSE"  # MSE, RMSE, MAE, R2
-    optimizer_type = "BGD"  # PSO, BGD
-    # Step 1: Load Data
-    data = load_data()
-    # Step 2: Preprocess the data
-    train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
-    # Step 3: Learning Start
-    theta = np.array([0.0, 0.0])  # Initialize model parameter
-    start_time = datetime.datetime.now()  # Track learning starting time
-    thetas, losses = learn(train_labels.values, train_data.values, theta, max_iters, alpha, optimizer_type, metric_type)
-    end_time = datetime.datetime.now()  # Track learning ending time
-    exection_time = (end_time - start_time).total_seconds()  # Track execution time
-    # Step 4: Results presentation
-    print("Learn: execution time={t:.3f} seconds".format(t=exection_time))
-    # Build baseline model
-    print("R2:", -compute_loss(test_labels.values, test_data.values, thetas[-1], "R2"))  # R2 should be maximize
-    print("MSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MSE"))
-    print("RMSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "RMSE"))
-    print("MAE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MAE"))
-
-    # visualize_train(train_data_full, train_labels, train_data, thetas, losses, 49)
-    # visualize_test(test_data_full, test_data, thetas)
-
-
-def mini_batch_bgd_plus_mse():
-    # Settings
-    metric_type = "MSE"  # MSE, RMSE, MAE, R2
-    optimizer_type = "MiniBGD"  # PSO, BGD
-    # Step 1: Load Data
-    data = load_data()
-    # Step 2: Preprocess the data
-    train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
-    # Step 3: Learning Start
-    theta = np.array([0.0, 0.0])  # Initialize model parameter
-    start_time = datetime.datetime.now()  # Track learning starting time
-    thetas, losses = learn(train_labels.values, train_data.values, theta, max_iters, alpha, optimizer_type, metric_type)
-    end_time = datetime.datetime.now()  # Track learning ending time
-    exection_time = (end_time - start_time).total_seconds()  # Track execution time
-    # Step 4: Results presentation
-    print("Learn: execution time={t:.3f} seconds".format(t=exection_time))
-    # Build baseline model
-    print("R2:", -compute_loss(test_labels.values, test_data.values, thetas[-1], "R2"))  # R2 should be maximize
-    print("MSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MSE"))
-    print("RMSE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "RMSE"))
-    print("MAE:", compute_loss(test_labels.values, test_data.values, thetas[-1], "MAE"))
-
 
 
 def pso_plus_mse():
@@ -209,13 +159,8 @@ def pso_plus_mae():
 
 
 if __name__ == '__main__':
-    print("\nBGD+MSE:")
-    bgd_plus_mse()
     print("\nPSO+MSE:")
     pso_plus_mse()
     print("\nPSO+MAE:")
     pso_plus_mae()
-
-    # print("\nMiniBGD+MSE:")
-    # mini_batch_bgd_plus_mse()
 
