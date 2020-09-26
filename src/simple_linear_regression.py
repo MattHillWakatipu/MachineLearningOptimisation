@@ -59,12 +59,12 @@ def data_preprocess(data):
 
     # Pre-process data (both train and test)
     train_data_full = train_data.copy()
-    train_data = train_data.drop(["Height"], axis = 1)
-    train_labels = train_data_full["Height"]
+    train_data = train_data.drop(["Weight"], axis = 1)
+    train_labels = train_data_full["Weight"]
 
     test_data_full = test_data.copy()
-    test_data = test_data.drop(["Height"], axis = 1)
-    test_labels = test_data_full["Height"]
+    test_data = test_data.drop(["Weight"], axis = 1)
+    test_labels = test_data_full["Weight"]
 
     # Standardize the inputs
     train_mean = train_data.mean()
@@ -206,8 +206,8 @@ def pso_plus_mae():
 if __name__ == '__main__':
     print("\nBGD+MSE:")
     bgd_plus_mse()
-    print("\nMiniBGD+MSE:")
-    mini_batch_bgd_plus_mse()
+    # print("\nMiniBGD+MSE:")
+    # mini_batch_bgd_plus_mse()
     print("\nPSO+MSE:")
     pso_plus_mse()
     print("\nPSO+MAE:")

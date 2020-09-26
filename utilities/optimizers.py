@@ -4,7 +4,7 @@
 Optimizers for optimizing the performance metrics include:
 
 1. Batch Gradient Descent
-""" 
+"""
 
 import numpy as np
 
@@ -38,7 +38,7 @@ def gradient_descent(y, x, theta, max_iters, alpha, metric_type):
         losses.append(loss)
 
         print("BGD({bi}/{ti}): loss={l}, w={w}, b={b}".format(
-            bi = i, ti = max_iters - 1, l = loss, w = theta[0], b = theta[1]))
+            bi=i, ti=max_iters - 1, l=loss, w=theta[0], b=theta[1]))
     return thetas, losses
 
 
@@ -58,21 +58,44 @@ def mini_batch_gradient_descent(y, x, theta, max_iters, alpha, metric_type, mini
     losses = []
     thetas = []
     # Please refer to the function "gradient_descent" to implement the mini-batch gradient descent here
-    # TODO make this use batches somehow?
+
     num_of_samples = len(x)
     for i in range(max_iters):
-        # This is for MSE loss only
-        gradient = -2 * x.T.dot(y - x.dot(theta)) / num_of_samples
-        theta = theta - alpha * gradient
-        loss = compute_loss(y, x, theta, metric_type)
+        mini_batches = create_mini_batches(x, y, mini_batch_size)
+        for mini_batch in mini_batches:
+            # This is for MSE loss only
+            x_batch, y_batch = mini_batch
+            gradient = -2 * x_batch.T.dot(y_batch - x_batch.dot(theta)) / num_of_samples
+            theta = theta - alpha * gradient
+            loss = compute_loss(y_batch, x_batch, theta, metric_type)
 
-        # Track losses and thetas
-        thetas.append(theta)
-        losses.append(loss)
+            # Track losses and thetas
+            thetas.append(theta)
+            losses.append(loss)
+            print("BGD({bi}/{ti}): loss={l}, w={w}, b={b}".format(
+                bi=i, ti=max_iters - 1, l=loss, w=theta[0], b=theta[1]))
 
-        print("BGD({bi}/{ti}): loss={l}, w={w}, b={b}".format(
-            bi = i, ti = max_iters - 1, l = loss, w = theta[0], b = theta[1]))
     return thetas, losses
+
+
+def create_mini_batches(x, y, mini_batch_size):
+    # FIXME this doesn't work at all, x and y different size because of intercept dummy
+    mini_batches = []
+    data = np.hstack((x, y))
+    np.random.shuffle(data)
+    n_minibatches = data.shape[0] // mini_batch_size
+    i = 0
+    for i in range(n_minibatches + 1):
+        mini_batch = data[i * mini_batch_size:(i + 1) * mini_batch_size, :]
+        X_mini = mini_batch[:, :-1]
+        Y_mini = mini_batch[:, -1].reshape((-1, 1))
+        mini_batches.append((X_mini, Y_mini))
+    if data.shape[0] % mini_batch_size != 0:
+        mini_batch = data[i * mini_batch_size:data.shape[0]]
+        X_mini = mini_batch[:, :-1]
+        Y_mini = mini_batch[:, -1].reshape((-1, 1))
+        mini_batches.append((X_mini, Y_mini))
+    return mini_batches
 
 
 def pso(y, x, theta, max_iters, pop_size, metric_type):
@@ -120,8 +143,8 @@ def pso(y, x, theta, max_iters, pop_size, metric_type):
     count = 0
     while not terminate:
         for i in range(pop_size):
-            rand_p = np.random.uniform(0, 1, size = len(theta))
-            rand_g = np.random.uniform(0, 1, size = len(theta))
+            rand_p = np.random.uniform(0, 1, size=len(theta))
+            rand_g = np.random.uniform(0, 1, size=len(theta))
             velocity[i] = w * velocity[i] + c_p * rand_p * (p_best[i] - thetas[i]) + c_g * rand_g * (g_best - thetas[i])
             thetas[i] = thetas[i] + velocity[i]
             if compute_loss(y, x, thetas[i], metric_type) < compute_loss(y, x, p_best[i], metric_type):
@@ -133,7 +156,7 @@ def pso(y, x, theta, max_iters, pop_size, metric_type):
         losses.append(current_loss)
 
         print("PSO({bi}/{ti}): loss={l}, w={w}, b={b}".format(
-            bi = count, ti = max_iters - 1, l = current_loss, w = g_best[0], b = g_best[1]))
+            bi=count, ti=max_iters - 1, l=current_loss, w=g_best[0], b=g_best[1]))
         count += 1
         if count >= max_iters:
             terminate = True

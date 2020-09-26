@@ -32,8 +32,8 @@ train_test_split_test_size = 0.3
 
 # load data
 def load_part_two():
-    df_data = pd.read_csv("../data/Part 2 - classification/adult.data")
-    df_test = pd.read_csv("../data/Part 2 - classification/adult.test")
+    df_data = pd.read_csv("../../data/Part 2 - classification/adult.data")
+    df_test = pd.read_csv("../../data/Part 2 - classification/adult.test")
     return df_data, df_test
 
 def data_preprocess(data, test):

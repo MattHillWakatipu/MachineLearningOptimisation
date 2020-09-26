@@ -2,7 +2,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import datetime
 import random
 
 from sklearn import linear_model
@@ -19,7 +18,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVR, LinearSVR
 from sklearn.tree import DecisionTreeRegressor
 
-from utilities.losses import compute_loss
 
 seed = 309
 random.seed(seed)
@@ -29,7 +27,7 @@ train_test_split_test_size = 0.3
 
 # load data
 def load_part_one():
-    df = pd.read_csv("../data/Part 1 - regression/diamonds.csv")
+    df = pd.read_csv("../../data/Part 1 - regression/diamonds.csv")
     return df
 
 
@@ -60,10 +58,16 @@ def data_preprocess(data):
     # Pre-process data (both train and test)
     train_data_full = train_data.copy()
     train_data = train_data.drop(["price"], axis=1)
+    train_data = train_data.drop(["depth"], axis=1)
+    train_data = train_data.drop(["table"], axis=1)
+    train_data = train_data.drop(["Unnamed: 0"], axis=1)
     train_labels = train_data_full["price"]
 
     test_data_full = test_data.copy()
     test_data = test_data.drop(["price"], axis=1)
+    test_data = test_data.drop(["depth"], axis=1)
+    test_data = test_data.drop(["table"], axis=1)
+    test_data = test_data.drop(["Unnamed: 0"], axis=1)
     test_labels = test_data_full["price"]
 
     # Standardize the inputs
@@ -117,24 +121,26 @@ if __name__ == '__main__':
         print("\nShape:", df.shape)
         print("\nMissing data?:", df.isnull().values.any())
         print("\nData Types: ", df.info())
+        print("\nDescribe:")
+        print(data.describe(include='all'))
+        print(data.corr())
 
     # Step 3: Preprocess the data
     train_data, train_labels, test_data, test_labels, train_data_full, test_data_full = data_preprocess(data)
 
-    print("\nData Types: ", df.info())
-
-    print("\nTest Data Head: \n", test_data.head())
-
     # Step 4: Exploratory Data analysis
-
+    print("\nData Types: ", df.info())
+    print("\nTest Data Head: \n", test_data.head())
     # TODO work out how to make plots
-    # train_data.plot.scatter(x='price', y='carat')
-    #
+    # with pd.option_context('display.max_columns', 11):
+    #     print(df.head())
+    #     print("\nShape:", df.shape)
+    #     print("\nMissing data?:", df.isnull().values.any())
+    #     print("\nData Types: ", df.info())
+    #     print(data.corr())
     # with pd.option_context('display.max_columns', 11):
     #     print("\nDescribe:")
     #     print(train_data.describe(include='all'))
-    #     print("\nCorrelation:")
-    #     print(train_data.corr())
 
     # Step 5: Build models & Evaluate on the test set
     linear_regression = LinearRegression()
@@ -173,6 +179,6 @@ if __name__ == '__main__':
     linear_svr.fit(train_data, train_labels)
     calculate_errors("Linear Support Vector Regression", linear_svr)
 
-    mlp = MLPRegressor(max_iter=1000)
+    mlp = MLPRegressor(max_iter=6000)
     mlp.fit(train_data, train_labels)
     calculate_errors("Multi-Layer Perceptron Regression", mlp)
